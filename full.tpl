@@ -447,7 +447,7 @@
                                 <img width="40" src="img/profile-pics/1.jpg" alt="">
                             </div> -->
                             <div class="media-body">
-                                <small class="text-muted">{$event.start|date_format:"%A, %B %e"} {$event.end|date_format:"%A, %B %e"}</small><br>
+                                <small class="text-muted">{$event.start|date_format} {$event.end|date_format}</small><br>
                                 <a class="t-overflow" href="">{$event.title}</a>
                             </div>
                         </div>
