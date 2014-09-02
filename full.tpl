@@ -230,7 +230,119 @@
         
             <!-- Content -->
             <section id="content" class="container">
-            
+                
+        
+                <script type="text/javascript">
+
+                    $.getJSON('/calendar/getEvents/.json',function  (data) {
+                          
+
+                            $('#calendar').fullCalendar({
+                                header: {
+                                     center: 'title',
+                                     left: 'prev, next',
+                                     right: ''
+                                },
+
+                                selectable   : true,
+                                selectHelper : true,
+                                editable     : true,
+                                events       : data.data,
+                                 
+                                //On Day Select
+                                select: function(start, end, allDay) {
+                                    $('#addNew-event').modal('show');   
+                                    $('#addNew-event input:text').val('');
+                                    $('#getStart').val(start);
+                                    $('#getEnd').val(end);
+                                },
+                                 
+                                eventResize: function(event,dayDelta,minuteDelta,revertFunc) {
+                                    $('#editEvent').modal('show');
+
+                                    var info =
+                                        "The end date of " + event.title + "has been moved " +
+                                        dayDelta + " days and " +
+                                        minuteDelta + " minutes."
+                                    ;
+                                    
+                                    $('#eventInfo').html(info);
+                            
+                            
+                                    $('#editEvent #editCancel').click(function(){
+                                         revertFunc();
+                                    }) 
+                                }
+                            });
+                          // body...
+                        });
+                
+                    $(document).ready(function() {
+                        var date = new Date();
+                        var d = date.getDate();
+                        var m = date.getMonth();
+                        var y = date.getFullYear();
+
+                        
+
+                        $('body').on('click', '#addEvent', function(){
+                             var eventForm =  $(this).closest('.modal').find('.form-validation');
+                             eventForm.validationEngine('validate');
+                             
+                             if (!(eventForm).find('.formErrorContent')[0]) {
+                                  
+                                  //Event Name
+                                  var eventName = $('#eventName').val();
+
+                                  var eve = {
+                                       title  : eventName,
+                                       start  : $('#getStart').val(),
+                                       end    :  $('#getEnd').val(),
+                                       allDay : true,
+                                  };
+
+                                  //Render Event
+                                  $('#calendar').fullCalendar('renderEvent',{
+                                       title  : eventName,
+                                       start  : $('#getStart').val(),
+                                       end    :  $('#getEnd').val(),
+                                       allDay : true,
+                                  },true ); //Stick the event
+                                  
+                                $.ajax({
+                                    url      : '/calendar/event/add/.json',
+                                    dataType : 'json',
+                                    type     : 'post',
+                                    data     : {
+                                        event : eve
+                                    },
+                                    success : function  (data) {
+                                        DATA = data;
+                                    }                    
+                                });
+
+
+                                  $('#addNew-event form')[0].reset()
+                                  $('#addNew-event').modal('hide');
+                             } 
+                        });   
+                    });    
+                    
+                    //Calendar views
+                    $('body').on('click', '.calendar-actions > li > a', function(e){
+                        e.preventDefault();
+
+                        
+
+                        var dataView = $(this).attr('data-view');
+                        $('#calendar').fullCalendar('changeView', dataView);
+                        
+                        //Custom scrollbar
+                        var overflowRegular, overflowInvisible = false;
+                        overflowRegular = $('.overflow').niceScroll();     
+                    });                    
+                    
+               </script>
                 <!-- Messages Drawer -->
                 <div id="messages" class="tile drawer animated">
                     <div class="listview narrow">
@@ -508,112 +620,7 @@
             </section>
         </section>
         
-       
-        
-        <script type="text/javascript">
-            $(document).ready(function() {
-                var date = new Date();
-                var d = date.getDate();
-                var m = date.getMonth();
-                var y = date.getFullYear();
 
-                $.getJSON('/calendar/getEvents/.json',function  (data) {
-                  
-
-                    $('#calendar').fullCalendar({
-                        header: {
-                             center: 'title',
-                             left: 'prev, next',
-                             right: ''
-                        },
-
-                        selectable   : true,
-                        selectHelper : true,
-                        editable     : true,
-                        events: data.data,
-                         
-                        //On Day Select
-                        select: function(start, end, allDay) {
-                            $('#addNew-event').modal('show');   
-                            $('#addNew-event input:text').val('');
-                            $('#getStart').val(start);
-                            $('#getEnd').val(end);
-                        },
-                         
-                        eventResize: function(event,dayDelta,minuteDelta,revertFunc) {
-                            $('#editEvent').modal('show');
-
-                            var info =
-                                "The end date of " + event.title + "has been moved " +
-                                dayDelta + " days and " +
-                                minuteDelta + " minutes."
-                            ;
-                            
-                            $('#eventInfo').html(info);
-                    
-                    
-                            $('#editEvent #editCancel').click(function(){
-                                 revertFunc();
-                            }) 
-                        }
-                    });
-                  // body...
-                });
-                $('body').on('click', '#addEvent', function(){
-                     var eventForm =  $(this).closest('.modal').find('.form-validation');
-                     eventForm.validationEngine('validate');
-                     
-                     if (!(eventForm).find('.formErrorContent')[0]) {
-                          
-                          //Event Name
-                          var eventName = $('#eventName').val();
-
-                          var eve = {
-                               title  : eventName,
-                               start  : $('#getStart').val(),
-                               end    :  $('#getEnd').val(),
-                               allDay : true,
-                          };
-
-                          //Render Event
-                          $('#calendar').fullCalendar('renderEvent',{
-                               title  : eventName,
-                               start  : $('#getStart').val(),
-                               end    :  $('#getEnd').val(),
-                               allDay : true,
-                          },true ); //Stick the event
-                          
-                        $.ajax({
-                            url      : '/calendar/event/add/.json',
-                            dataType : 'json',
-                            type     : 'post',
-                            data     : {
-                                event : eve
-                            },
-                            success : function  (data) {
-                                DATA = data;
-                            }                    
-                        });
-
-
-                          $('#addNew-event form')[0].reset()
-                          $('#addNew-event').modal('hide');
-                     } 
-                });   
-            });    
-            
-            //Calendar views
-            $('body').on('click', '.calendar-actions > li > a', function(e){
-                e.preventDefault();
-                var dataView = $(this).attr('data-view');
-                $('#calendar').fullCalendar('changeView', dataView);
-                
-                //Custom scrollbar
-                var overflowRegular, overflowInvisible = false;
-                overflowRegular = $('.overflow').niceScroll();     
-            });                    
-            
-       </script>
     </body>
 </html>
 
