@@ -517,33 +517,7 @@
                 
                 <h4 class="page-title">CALENDAR</h4>
                 
-                <div class="block-area">
-                    <div class="alert alert-info alert-dismissable fadein">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        Click on a Day to add an Event.
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <h4 class="m-l-5">Upcoming Events</h4>
-                    <div class="listview narrow">
-                        {foreach $events as $e => $event}
-                        
-                        <div class="media p-l-5">
-                            <!-- <div class="pull-left">
-                                <img width="40" src="img/profile-pics/1.jpg" alt="">
-                            </div> -->
-                            <div class="media-body">
-                                <small class="text-muted">{$event.start|date_format} {$event.end|date_format}</small><br>
-                                <a class="t-overflow" href="">{$event.title}</a>
-                            </div>
-                        </div>
-                        {/foreach}
-                         
-                    </div>
-                </div>
-
-                <div class="col-md-8 clearfix">
+                <div class="col-md-10 clearfix tile">
                     
                     <div id="calendar" class="p-relative p-10 m-b-20">
                         <!-- Calendar Views -->
@@ -566,6 +540,35 @@
                         </ul>
                     </div>
                 </div>
+
+                
+                
+                <div class="col-md-2">
+                    <div class="block-area">
+                        <div class="alert alert-info alert-dismissable fadein">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            Click on a Day to add an Event.
+                        </div>
+                    </div>
+                    <h4 class="m-l-5">Upcoming Events</h4>
+                    <div class="listview narrow">
+                        {foreach $events as $e => $event}
+                        
+                        <div class="media p-l-5">
+                            <!-- <div class="pull-left">
+                                <img width="40" src="img/profile-pics/1.jpg" alt="">
+                            </div> -->
+                            <div class="media-body">
+                                <small class="text-muted">{$event.start|date_format} {$event.end|date_format}</small><br>
+                                <a class="t-overflow" href="">{$event.title}</a>
+                            </div>
+                        </div>
+                        {/foreach}
+                         
+                    </div>
+                </div>
+
+                
                 
                 
 
