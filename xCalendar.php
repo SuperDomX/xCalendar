@@ -1,6 +1,6 @@
 <?php 
 /**
- * @name Calendar 
+ * @name Events
  * @desc A calendar that tracks everything
  * @version v1.0.2
  * @author heylisten@xtiv.net
