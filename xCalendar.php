@@ -3,7 +3,7 @@
  * @name Events
  * @desc A calendar that tracks everything
  * @version v1.0.2
- * @author heylisten@xtiv.net
+ * @author @xopherdeep
  * @icon Calender Month.png
  * @mini calendar
  * @price $20
@@ -12,8 +12,6 @@
  * @todo
  * @beta true
  */
-
-	
 	class xCalendar extends Xengine{
 		
 		public function autoRun()
@@ -68,6 +66,4 @@
 			}
 		}
 	}
-
-
 ?>
