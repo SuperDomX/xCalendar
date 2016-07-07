@@ -7,7 +7,7 @@
  * @icon Calender Month.png
  * @mini calendar
  * @price $20
- * @see cronos
+ * @see copy 
  * @link calendar
  * @todo
  * @beta true
