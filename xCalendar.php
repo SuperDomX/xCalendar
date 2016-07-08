@@ -1,6 +1,6 @@
 <?php 
 /**
- * @name Events
+ * @name Calendar 
  * @desc A calendar that tracks everything
  * @version v1.0.2
  * @author @xopherdeep
