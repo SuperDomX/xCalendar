@@ -2,8 +2,8 @@
 /**
  * @name Calendar 
  * @desc A calendar that tracks everything
- * @version v1.0.2
- * @author @xopherdeep
+ * @version v0.1(160710)
+ * @author  @xopherdeep
  * @icon Calender Month.png
  * @mini calendar
  * @price $20
